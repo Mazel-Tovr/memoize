@@ -5,7 +5,7 @@ export function memoize(fn) {
         return null;
     } 
     const cache = new Map();  
-    return (...args) => { 
+    return function(...args) { 
         let arg = JSON.stringify(args);
         console.log(arg);
         console.log(cache.keys);
@@ -15,11 +15,11 @@ export function memoize(fn) {
         }
         else
         {
-            let result = fn(...args); 
+            let result = fn.call(this,...args); 
             cache.set(arg,result); 
             return result;
         } 
-    }
+    };
 }
 
 // const add = (a,b)=>(a*b);
